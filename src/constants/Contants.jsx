@@ -22,3 +22,4 @@ export const URL_LOGIN_WEB = "https://api.escuelajs.co/api/v1/auth/login"
 
 
 export const URL_ALL_USERS = "https://api.escuelajs.co/api/v1/users"
+

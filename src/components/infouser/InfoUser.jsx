@@ -1,6 +1,8 @@
 import "./infouser.css";
 import useAuth from "../../hook/useAuth";
 import useInfoUser from "../../hook/useInfoUser";
+import NewUser from "./NewUser";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { URL_LOGIN } from "../../constants/Contants";
 
@@ -12,8 +14,12 @@ const InfoUser = () => {
   const handleFormLogin = () => {
     navigate(URL_LOGIN);
   };
-  console.log("Usuario")
-  console.log(userName)
+  
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
+
 
   return (
     <>
@@ -48,14 +54,22 @@ const InfoUser = () => {
             <a
               className="dropdown-item"
               onClick={() => {
-                handleFormLogin;
+                handleFormLogin();
               }}
             >
               Iniciar Sesion
             </a>
           )}
+          <a className="dropdown-item"
+              onClick={() => {
+                handleShow();
+              }}
+            >
+              Nuevo Usuario
+            </a>
         </div>
       </div>
+      <NewUser show={show} handleClose={handleClose} />
     </>
   );
 };
