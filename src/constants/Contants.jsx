@@ -1,4 +1,4 @@
-export const URL_HOME = "/";
+export const URL_HOME = "infoecomerce2023/";
 export const URL_LOGIN = URL_HOME + "login";
 export const URL_USER = URL_HOME + "infouser";
 export const URL_SEARCH = URL_HOME + "search";
