@@ -1,0 +1,21 @@
+/*
+ * Footer
+ */
+ 
+ .footer {
+    padding: 1rem 0;
+    color: #999;
+    text-align: left;
+    background-color: #781111;
+    border-top: .05rem solid #e5e5e5;
+  }
+  .footer p:last-child {
+    margin-bottom: 0;
+  }
+  
+  .abs-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 20vh;
+  }
