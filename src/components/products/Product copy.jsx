@@ -1,18 +1,9 @@
 import "./products.css";
-import { URL_ALL_PRODUCTS, URL_PRODUCTS } from "../../constants/Contants";
-import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
 import { useState } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faEdit,
-  faEye,
-  faSync,
-  faTrash,
-  faReply,
-} from "@fortawesome/free-solid-svg-icons";
-import Mensaje from "./Mensaje";
+import { URL_PRODUCTS } from "../../constants/Contants";
+import { Link } from "react-router-dom";
 const Product = (props) => {
   const {
     id,
@@ -30,14 +21,17 @@ const Product = (props) => {
   //opcion = 1, es para usar en vista de producto
   //opcion = 2, es para usar en la edicion, eliminacion producto
   const url_id = URL_PRODUCTS + "/" + id;
-  const url_id_web = URL_ALL_PRODUCTS + id; //Direccion para actualizar y eliminar en la web
   const url_volver = URL_PRODUCTS;
+  const [titleNew, setTitleNew] = useState("");
+  const [priceNew, setPriceNew] = useState(0);
   const navigate = useNavigate();
-  const [productx, setProductx] = useState({title:title,price:price});
+  const token = localStorage.getItem("access_token");
+
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
+  /*
   const [operation, setOperation] = useState(0); //1=borrar, 2=Actualizar
   const handleEjectOperation = () => {
     switch (operation) {
@@ -46,13 +40,9 @@ const Product = (props) => {
         break;
 
       case 2: //Actualizar
-        mutationUpdateProduct.mutate({ title: productx.title, price:productx.price });
+        mutationUpdateProduct.mutate({ name: nameCategory });
         break;
     }
-  };
-
-  const handleEdit = () => {
-    navigate(url_id);
   };
 
   const handleReturn = () => {
@@ -64,6 +54,7 @@ const Product = (props) => {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
       },
     });
     if (!response.ok) {
@@ -73,13 +64,13 @@ const Product = (props) => {
     return response.json();
   };
 
-  const updateProduct = async ({ title, price }) => {
+  const updateProduct = async ({ name }) => {
     const response = await fetch(url_id_web, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ title: title, price:price }),
+      body: JSON.stringify({ name: name }),
     });
 
     if (!response.ok) {
@@ -95,8 +86,8 @@ const Product = (props) => {
       alert("Se Ha Eliminado el Producto.");
       handleReturn();
     },
-    onError: (data) => {
-      alert("Error en Operación " + data.message + " de Eliminación.");
+    onError: (dala) => {
+      alert("Error en Operación " + dala.message + " de Eliminación.");
     },
   });
 
@@ -109,6 +100,10 @@ const Product = (props) => {
       alert("Error en Operación " + dala.message + " de Actualización.");
     },
   });
+  */
+
+  //console.log(category)
+  //console.log(images)
 
   return (
     <>
@@ -119,74 +114,43 @@ const Product = (props) => {
               <div className="col-md-3 mt-1">
                 <img
                   className="img-fluid img-responsive rounded product-image"
-                  src={images[0]}
+                  src="..."
                 />
               </div>
               <div className="col-md-6 mt-1">
-                {rol == "admin"?<input type="text" className="form-control" value={productx.title}
-                onChange={(e)=>{
-                  setProductx({...productx, title:e.target.value})
-                }}/>:<h5>{title}</h5>}
-                
+                <h5>{title}</h5>
                 <p className="text-justify ">
                   {description}
                   <br />
                 </p>
                 <div className="d-flex flex-row">
                   {option == 1 && rol == "admin" && (
-                    <button
-                      onClick={() => {
-                        handleEdit();
-                      }}
-                      className="btn btn-sm btn-outline-secondary mr-2"
-                    >
-                      <FontAwesomeIcon icon={faEdit} />
-                    </button>
+                    <a className="btn btn-outline-info btn-sm mr-2">
+                      <Link to={url_id}>Detalle</Link>
+                    </a>
                   )}
                   {option == 2 && rol == "admin" && (
-                    <button
-                      onClick={() => {
-                        setOperation(2);
-                        handleShow();
-                      }}
-                      className="btn btn-sm btn-outline-secondary mr-2"
-                    >
-                      <FontAwesomeIcon icon={faSync} />
-                    </button>
+                    <a className="btn btn-outline-info btn-sm mr-2">
+                      <Link to={url_id}>Actualizar</Link>
+                    </a>
                   )}
                   {option == 2 && rol == "admin" && (
-                    <button
-                      onClick={() => {
-                        setOperation(1);
-                        handleShow();
-                      }}
-                      className="btn btn-sm btn-outline-secondary mr-2"
-                    >
-                      <FontAwesomeIcon icon={faTrash} />
-                    </button>
+                    <a className="btn btn-outline-info btn-sm mr-2">
+                      <Link to={url_id}>Eliminar</Link>
+                    </a>
                   )}
-
                   {option == 2 && (
-                    <button
-                      onClick={() => {
-                        handleReturn();
-                      }}
-                      className="btn btn-sm btn-outline-secondary mr-2"
-                    >
-                      <FontAwesomeIcon icon={faReply} />
-                    </button>
+                    <a className="btn btn-outline-info btn-sm mr-2">
+                      <Link to={url_volver}>Volver</Link>
+                    </a>
                   )}
                 </div>
               </div>
               <div className="align-items-center align-content-center col-md-3 border-left mt-1">
                 <div className="d-flex flex-row align-items-center">
-                  {rol == "admin"?<input type="number" className="form-control" value={productx.price}
-                onChange={(e)=>{
-                  setProductx({...productx, price:e.target.value})
-                }}/>:<h4 className="mr-1">$ {price}</h4>}
-
+                  <h4 className="mr-1">${price}</h4>
                 </div>
-                <h6 className="text-success">{category.name}</h6>
+                <h6 className="text-success">{category}</h6>
                 <div className="d-flex flex-column mt-4">
                   <button
                     className="btn btn-outline-primary btn-sm mt-2"
@@ -200,12 +164,6 @@ const Product = (props) => {
           </div>
         </div>
       </div>
-      <Mensaje
-        show={show}
-        handleClose={handleClose}
-        operation={operation}
-        handleEjectOperation={handleEjectOperation}
-      />
     </>
   );
 };

@@ -1,5 +1,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { URL_ALL_CATEGORY, URL_ALL_PRODUCTS } from "../../constants/Contants";
+import { useState } from "react";
 import Product from "./Product";
 import "./products.css";
 //import { useEffect, useReducer } from "react";
@@ -11,7 +12,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { useQuery } from "@tanstack/react-query";
 import useInfoUser from "../../hook/useInfoUser";
-import { useEffect, useState } from "react";
+
 
 /*
 const INIT_STATE = { data: [], isLoading: false, error: "", isSuccess: false };
@@ -134,9 +135,7 @@ const IndexProducts = () => {
     return <h1>Error {queryProducts.error.message}</h1>;
   }
 
-  console.log(queryProducts.data)
-
-  //setProducts(queryProducts.data);
+  console.log(queryProducts.data);
 
   return (
     <section className="section-container bg padding-y">
@@ -336,6 +335,7 @@ const IndexProducts = () => {
           <main className="col-sm-8">
             {queryProducts.data.map((products) => (
               <Product
+                key={products.id}
                 id={products.id}
                 title={products.title}
                 price={products.price}

@@ -93,8 +93,8 @@ const Categoria = (props) => {
       alert("Se Ha Eliminado la Categoria.");
       handleReturn();
     },
-    onError: (dala) => {
-      alert("Error en Operación " + dala.message + " de Eliminación.");
+    onError: (data) => {
+      alert("Error en Operación " + data.message + " de Eliminación.");
     },
   });
 

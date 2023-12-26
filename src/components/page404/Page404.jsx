@@ -1,5 +1,5 @@
 import "./page404.css"
-
+import { URL_HOME } from "../../constants/Contants";
 const Page404 = () => {
   return (
     <div>
@@ -8,7 +8,7 @@ const Page404 = () => {
         <p>La página que estás buscando no existe.</p>
         <p>
           ¿Qué tal si vuelves a{" "}
-          <a className="a404" href="/ecommerce2023/">
+          <a className="a404" href={URL_HOME}>
             la página de inicio
           </a>
           ?

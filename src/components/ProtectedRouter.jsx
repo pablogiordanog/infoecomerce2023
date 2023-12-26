@@ -4,12 +4,10 @@ import useInfoUser from "../hook/useInfoUser";
 
 const ProtectedRouter = ({children}) =>{
   const {email} = useInfoUser();
-  const currentLocation = useLocation()
+  const currentLocation = useLocation();
   if(!email){
-    console.log("se ejecuto")
     return <Navigate to={URL_LOGIN} state={{from:currentLocation}} replace={true}/>
   }
-
   return children;
 }
 

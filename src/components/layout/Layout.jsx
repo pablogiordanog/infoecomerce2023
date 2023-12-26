@@ -18,12 +18,6 @@ import useInfoUser from "../../hook/useInfoUser";
 
 const Menu = () => {
   const { email, rol } = useInfoUser();
-  console.log("Menu")
-  //console.log(user)
-  //const { email } = user;
-  console.log(email);
-  console.log(rol)
-
   return (
     <div className="container pt-5 mt-5 mx-auto" style={{width:"100%"}}>
       <div className="container-fluid pt-5 px-1 my-3 mx-auto border" style={{width:"100%"}}>

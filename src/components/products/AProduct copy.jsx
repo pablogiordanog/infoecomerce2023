@@ -1,16 +1,14 @@
-import "./category.css"
-import { URL_ALL_CATEGORY } from "../../constants/Contants";
-import Categoria from "./Categoria";
+import "./products.css";
+import { URL_ALL_PRODUCTS } from "../../constants/Contants";
+import Product from "./Product";
 import { useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import useInfoUser from "../../hook/useInfoUser";
 
+//const INIT_STATE = { data: [], sLoading: false, error: "", isSuccess: false};
 
-//import { useEffect, useReducer } from "react";
 /*
-const INIT_STATE = { data: [], isLoading: false, error: "", isSuccess: false };
-
-const loadStatus = (state: any, action: any) => {
+const loadStatus = (state, action) => {
   switch (action.type) {
     case "isSuccess":
       return {
@@ -33,7 +31,7 @@ const loadStatus = (state: any, action: any) => {
   }
 };
 
-const loadCategoty = (url: string) => {
+const loadProduct = (url) => {
   const [state, dispatch] = useReducer(loadStatus, INIT_STATE);
   const { data, isLoading, error, isSuccess } = state;
   useEffect(() => {
@@ -44,7 +42,6 @@ const loadCategoty = (url: string) => {
         if (data.error) {
           throw new Error("Error cargando datos");
         }
-        console.log(data);
         dispatch({ type: "isSuccess", payload: data });
       } catch (error) {
         dispatch({ type: "error", payload: "Error" });
@@ -56,33 +53,31 @@ const loadCategoty = (url: string) => {
 };
 */
 
+const AProduct = () => {
+  const { id } = useParams();
+  const url = URL_ALL_PRODUCTS + id;
+  //const { data, isLoading, error, isSuccess } = loadProduct(url);
 
-const ACategory = () => {
-  const {id} = useParams();
-  const url_id = URL_ALL_CATEGORY + id;
-  //const { data, isLoading, error, isSuccess } = loadCategoty(URL_ALL_CATEGORY + id);
-
-  const getCategory = async (url) => {
+  const getProduct = async (url) => {
     const res = await fetch(url);
     const json = await res.json();
-    if(json.error){
+    if (json.error) {
       throw new Error(json.error);
     }
     return json;
-  }
+  };
 
   const query = useQuery({
-    queryKey: ["categoryId"],
-    queryFn: () => getCategory(url_id),
+    queryKey: ["productId"],
+    queryFn: () => getProduct(url_id),
   });
 
-
   if (query.isLoading) {
-    return <h1>Cargando Categoria...</h1>;
+    return <h1>Cargando Producto...</h1>;
   }
 
   if (!query.isSuccess) {
-    return <h1>Cargando Categoria...</h1>;
+    return <h1>Cargando Producto</h1>;
   }
 
   if (query.isError) {
@@ -90,29 +85,35 @@ const ACategory = () => {
   }
 
   //const rol = "customer";
-  const {rol} = useInfoUser();
-  
-  
-  const {name,image,creationAt,updatedAt} = query.data
+  //const rol = "admin";
+  const { rol } = useInfoUser();
+
+  console.log(query.data);
+
+  const { title, price, description, images, creationAt, updatedAt, category } =
+    query.data;
 
   return (
     <>
       <div id="galeria" className="container">
         <div className="row">
-              <Categoria
-                key={id}
-                id={id}
-                name={name}
-                image={image}
-                creationAt={new Date(creationAt).toLocaleString()}
-                updatedAt={new Date(updatedAt).toLocaleString()}
-                option="2"
-                rol={rol}
-              />
+          <Product
+            key={id}
+            id={id}
+            title={title}
+            price={price}
+            description={description}
+            images={images}
+            creationAt={creationAt}
+            updatedAt={updatedAt}
+            category={category}
+            option="2"
+            rol={rol}
+          />
         </div>
       </div>
     </>
   );
 };
 
-export default ACategory;
+export default AProduct;
