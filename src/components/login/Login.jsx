@@ -2,7 +2,7 @@ import "./login.css";
 import { useState } from "react";
 import useAuth from "../../hook/useAuth";
 import { useNavigate, useLocation } from "react-router-dom";
-import { URL_ALL_USERS, URL_LOGIN_WEB } from "../../constants/Contants";
+import { URL_ALL_USERS, URL_LOGIN_WEB ,URL_HOME} from "../../constants/Contants";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSignInAlt, faUser } from "@fortawesome/free-solid-svg-icons";
@@ -14,7 +14,7 @@ const Login = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  let from = location.state?.from?.pathname || "/";
+  let from = location.state?.from?.pathname || {URL_HOME};
 
   //Query para listar todos los Usuarios
   const getUsuarios = async () => {
