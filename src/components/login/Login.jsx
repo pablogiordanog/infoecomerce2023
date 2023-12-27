@@ -83,6 +83,7 @@ const Login = () => {
       localStorage.setItem("refresh_token", data.refresh_token);
 
       navigate(from, { replace: true });
+
     },
     onError: () => {
       //console.log('Algo salio mal',data);
