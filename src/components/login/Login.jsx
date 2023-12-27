@@ -127,14 +127,7 @@ const Login = () => {
               required
             />
 
-            <div id="remember" className="checkbox">
-              <label>
-                <a>
-                  <input type="checkbox" value="remember-me" /> Recordar
-                  Contraseña?
-                </a>
-              </label>
-            </div>
+           
             <button
               onClick={(event) => {
                 event.preventDefault();
@@ -146,9 +139,7 @@ const Login = () => {
               Iniciar sesión <FontAwesomeIcon icon={faSignInAlt} />
             </button>
           </form>
-          <a href="#" className="forgot-password">
-            ¿Olvidaste la contraseña?
-          </a>
+          
         </div>
       </div>
     </>

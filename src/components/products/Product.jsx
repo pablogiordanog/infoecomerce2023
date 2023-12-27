@@ -7,12 +7,13 @@ import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faEdit,
-  faEye,
+  faPlusCircle,
   faSync,
   faTrash,
   faReply,
 } from "@fortawesome/free-solid-svg-icons";
 import Mensaje from "./Mensaje";
+import useInfoUser from "../../hook/useInfoUser";
 const Product = (props) => {
   const {
     id,
@@ -110,6 +111,31 @@ const Product = (props) => {
     },
   });
 
+  const handleAddCard = () =>{
+    let {email} = useInfoUser();
+    let cantidad = 1;
+    let importe = price * cantidad;
+    let item = {id:id,
+                title:title,
+                price:price,
+                imagen:images[0],
+                cantidad:cantidad,
+                importe:importe,
+                category:category.name,
+              } 
+      let itemsShopping = localStorage.getItem(email);        
+      if(itemsShopping){
+        console.log(itemsShopping)
+        let itemsNuevo = itemsShopping ? itemsShopping.split(","):[];
+        //let itemsNuevo = JSON.parse(itemsShopping);
+        itemsNuevo.push(item);
+        localStorage.setItem(email, itemsNuevo);  
+      }else{
+        localStorage.setItem(email, JSON.stringify(item));      
+      }  
+  }
+
+
   return (
     <>
       <div className="container mt-5 mb-5" key={id}>
@@ -188,11 +214,12 @@ const Product = (props) => {
                 </div>
                 <h6 className="text-success">{category.name}</h6>
                 <div className="d-flex flex-column mt-4">
-                  <button
+                  <button onClick={()=>{handleAddCard()}}
                     className="btn btn-outline-primary btn-sm mt-2"
                     type="button"
                   >
-                    Agregar al Carrito
+                    <FontAwesomeIcon icon={faPlusCircle} /> al Carrito
+                    
                   </button>
                 </div>
               </div>

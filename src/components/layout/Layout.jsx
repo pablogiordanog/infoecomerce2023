@@ -60,6 +60,7 @@ const Menu = () => {
               </li>
             </ul>
 
+           {/*
             <ul className="nav navbar-nav navbar-center">
               <li>
                 <form className="form-inline">
@@ -78,13 +79,15 @@ const Menu = () => {
                 </form>
               </li>
             </ul>
-
+            */}
+            
             <div className="my-2 my-lg-0 mr-2">
               <p>
                 <Card />
               </p>
             </div>
-
+             
+            
             <div className="my-2 my-lg-0 mr-4">
                 <InfoUser />
             </div>
