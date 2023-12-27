@@ -14,7 +14,7 @@ const Login = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  let from = location.state?.from?.pathname || "/infoecomerce2023/";
+  let from = location.state?.from?.pathname || "/";
 
   //Query para listar todos los Usuarios
   const getUsuarios = async () => {
